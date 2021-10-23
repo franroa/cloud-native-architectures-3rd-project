@@ -3,18 +3,61 @@
 ## Verify the monitoring installation
 
 *TODO:* run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
+![](./answer-img/pods - first questions.png)
+![](./answer-img/svc - first questions.png)
 
 ## Setup the Jaeger and Prometheus source
 *TODO:* Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
+![](answer-img/02 - grafana.png)
 
 ## Create a Basic Dashboard
 *TODO:* Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
+![](answer-img/03 - dashboard.png)
 
 ## Describe SLO/SLI
 *TODO:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
+The SLI are the minimum piece of measure to check if an objective defined in the SLO is being met, which will be used 
+to offer a SLA to the customer. For example, when you work on the cloud, each cloud has a SLA which informs you of
+how long your services will be running (monthly uptime). Going by these SLA you can calculate how much your service
+will be also running, as you have to add to the cloud service downtime you own application downtime. This downtime is
+measured with the SLI. 
 
 ## Creating SLI metrics.
-*TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
+*TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs.
+Going by https://sre.google/sre-book/service-level-objectives/ the four gold signals are:
+Latency: Is the delay a service need to respond to a user request
+Errors: Percentage of failed requests
+Traffic: How much traffic does your service is using
+Saturation: How utilised you infrastructure components are
+
+The calculation of the four is done in prometheus with following formulas
+***Latency***
+```
+sum(greeting_seconds_sum)/sum(greeting_seconds_count)  //Average
+histogram_quantile(0.95, sum(rate(greeting_seconds_bucket[5m])) by (le)) //Percentile p95
+```
+***Request Rate***
+```
+sum(rate(greeting_seconds_count{}[2m]))  //Including errors
+rate(greeting_seconds_count{code="200"}[2m])  //Only 200 OK requests
+```
+***Errors per secon***
+```
+sum(rate(greeting_seconds_count{code!="200"}[2m]))
+```
+***Saturation***
+```
+100 - (avg by (instance) (irate(node_cpu_seconds_total{}[5m])) * 100)
+```
+
+
+Other variations are ***USE*** (Utilization, Saturation and Errors) and ***RED*** (Rate, Error and Durability).
+
+In order to calculate the SLIs you have the formula:
+
+**SLI = Good Events * 100 / Valid Events**
+
+A good SLI ties up directly with user experience. For example, if the SLI indicates a lower value, it should also lower customer satisfaction. If that is not the case, then the SLI is not good and not even worth measuring
 
 ## Create a Dashboard to measure our SLIs
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
@@ -58,3 +101,16 @@ Links:
 https://blog.mphomphego.co.za/blog/2021/07/25/How-to-configure-Jaeger-Data-source-on-Grafana-and-debug-network-issues-with-Bind-utilities.html
 https://codersociety.com/blog/articles/loki-kubernetes-logging
 https://www.elastic.co/guide/en/cloud-on-k8s/master/k8s-install-helm.html
+http://www.inanzzz.com/index.php/post/yglp/export-and-import-grafana-dashboard-and-data-sources
+https://community.wegalvanize.com/s/article/Adding-CA-certificates-to-keystore-1467234930157?language=en_US
+https://traefik.io/blog/application-request-tracing-with-traefik-and-jaeger-on-kubernetes/
+https://medium.com/opentracing/take-opentracing-for-a-hotrod-ride-f6e3141f7941
+https://betterprogramming.pub/measuring-site-reliability-9745617d206c
+https://www.squadcast.com/blog/the-key-differences-between-sli-slo-and-sla-in-sre
+https://sysdig.com/blog/golden-signals-kubernetes/
+
+
+NOTES:
+- use OpenTelemetry
+- use ChaosEngineering
+- use tls in the communication elastic - jaeger

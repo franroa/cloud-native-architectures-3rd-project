@@ -1,8 +1,6 @@
+#Install elasticsearch
 kubectl create namespace elastic-system
 helm upgrade --install elastic-operator -n observability elastic/eck-operator -n elastic-system
-
-#Copy k3s config
-#/etc/rancher/k3s/k3s.yaml
 
 #Install Loki
 kubectl create namespace loki
@@ -26,9 +24,3 @@ helm upgrade --install  jaeger jaegertracing/jaeger-operator -n observability --
 #Install Grafana and Prometheus
 kubectl create namespace monitoring
 helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
-
-
-#kubectl apply -f ./app
-#kubectl apply -f ./other
-
-kubectl create secret generic jaeger-secret --from-literal=ES_PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}') --from-literal=ES_USERNAME=elastic
