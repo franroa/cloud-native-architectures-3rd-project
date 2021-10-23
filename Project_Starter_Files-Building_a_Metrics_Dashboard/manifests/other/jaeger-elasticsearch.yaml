@@ -1,6 +1,8 @@
 apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
+#  annotations:
+#    "sidecar.jaegertracing.io/inject": "true" # <1>
   name: simple-prod
 spec:
   strategy: production
@@ -8,7 +10,7 @@ spec:
     type: elasticsearch
     options:
       es:
-        server-urls: https://quickstart-es-http.default.svc:9200 # <2>
+        server-urls: https://quickstart-es-default.default.svc:9200 # <2>
         index-prefix: my-prefix
         tls: # <3>
           ca: /es/certificates/ca.crt

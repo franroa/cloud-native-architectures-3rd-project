@@ -51,3 +51,10 @@ Description:
 
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
+
+
+
+Links:
+https://blog.mphomphego.co.za/blog/2021/07/25/How-to-configure-Jaeger-Data-source-on-Grafana-and-debug-network-issues-with-Bind-utilities.html
+https://codersociety.com/blog/articles/loki-kubernetes-logging
+https://www.elastic.co/guide/en/cloud-on-k8s/master/k8s-install-helm.html
