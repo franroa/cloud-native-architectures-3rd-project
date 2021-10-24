@@ -24,3 +24,7 @@ helm upgrade --install  jaeger jaegertracing/jaeger-operator -n observability --
 #Install Grafana and Prometheus
 kubectl create namespace monitoring
 helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
+
+
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
