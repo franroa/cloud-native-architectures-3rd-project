@@ -28,6 +28,7 @@ spec:
   selector:
     app: frontend
   ports:
-    - port: 8080
+    - port: 8082
+      name: frontend #This name will be used in the ServiceMonitor
       targetPort: 8080
   type: LoadBalancer

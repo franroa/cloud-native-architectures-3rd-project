@@ -28,7 +28,8 @@ spec:
   selector:
     app: trial
   ports:
-    - port: 8080
+    - port: 8083
+      name: trial #This name will be used in the ServiceMonitor
       targetPort: 8080
       nodePort: 31167
   type: LoadBalancer
