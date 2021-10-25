@@ -3,8 +3,8 @@
 ## Verify the monitoring installation
 
 *TODO:* run `kubectl` command to show the running pods and services for all components. Take a screenshot of the output and include it here to verify the installation
-![alt text](./answer-img/01-pods.png)
-![alt text](./answer-img/01-svc.png)
+![alt text](answer-img1-pods.png)
+![alt text](answer-img1-svc.png)
 
 ## Setup the Jaeger and Prometheus source
 *TODO:* Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
@@ -12,7 +12,7 @@
 
 ## Create a Basic Dashboard
 *TODO:* Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
-![](answer-img/03-dashboard.png)
+![](answer-img/03-dashboard2.png)
 
 ## Describe SLO/SLI
 *TODO:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
@@ -158,7 +158,7 @@ https://blog.pilosus.org/posts/2019/06/01/grafana-dashboard-flask-app/
 https://github.com/pilosus/flask_prometheus_metrics
 https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics-with-grafana
 https://www.metricfire.com/blog/monitoring-kubernetes-with-prometheus/
-
+https://lightstep.com/blog/opentelemetry-and-tracing-and-logs-oh-my/
 
 
 https://grafana.com/grafana/dashboards/12553
