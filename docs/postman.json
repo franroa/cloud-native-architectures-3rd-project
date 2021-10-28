@@ -1,0 +1,241 @@
+{
+  "info": {
+    "_postman_id": "1637b3f8-9152-4ebd-89fc-7df63f44850c",
+    "name": "Udacity - CNA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Persons",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful response\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Data Validation\", function () {",
+              "    pm.expect(pm.response.text()).to.include(\"User Name\");",
+              "    pm.expect(pm.response.text()).to.include(\"User Password\");",
+              "});",
+              "",
+              "var json = pm.response.json();",
+              "pm.environment.set(\"ID\", json.ID);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ID\": 1,\n  \"UserName\": \"User Name\",\n  \"Password\": \"User Password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:30001/api/persons",
+          "host": [
+            "localhost"
+          ],
+          "port": "30001",
+          "path": [
+            "api",
+            "persons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful response\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "",
+              "var template = `",
+              "    <table bgcolor=\"#FFFFFF\">",
+              "        <tr>",
+              "            <th>Name</th>",
+              "            <th>Email</th>",
+              "        </tr>",
+              "",
+              "        {{#each response}}",
+              "            <tr>",
+              "                <td>{{UserName}}</td>",
+              "                <td>{{Password}}</td>",
+              "            </tr>",
+              "        {{/each}}",
+              "    </table>",
+              "`;",
+              "",
+              "pm.visualizer.set(template, {",
+              "    // Pass the response body parsed as JSON as `data`",
+              "    response: pm.response.json()",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,  \n  \"first_name\": \"Name\",\n  \"last_name\": \"Lastname\",\n  \"company_name\": \"My Company\"\n}"
+        },
+        "url": {
+          "raw": "localhost:30001/api/persons",
+          "host": [
+            "localhost"
+          ],
+          "port": "30001",
+          "path": [
+            "api",
+            "persons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get One Person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful response\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "",
+              "pm.test(\"Data Validation\", function () {",
+              "    pm.expect(pm.response.text()).to.include(\"UserName\");",
+              "    pm.expect(pm.response.text()).to.include(\"updated password\");",
+              "});",
+              "",
+              "var json = pm.response.json();",
+              "pm.environment.set(\"ID\", json.ID);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:30001/api/persons/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "30001",
+          "path": [
+            "api",
+            "persons",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Connections From Persons",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful response\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:30001/api/persons/1/connection?start_date=2020-07-07&end_date=2020-08-15",
+          "host": [
+            "localhost"
+          ],
+          "port": "30001",
+          "path": [
+            "api",
+            "persons",
+            "1",
+            "connection"
+          ],
+          "query": [
+            {
+              "key": "start_date",
+              "value": "2020-07-07"
+            },
+            {
+              "key": "end_date",
+              "value": "2020-08-15"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
